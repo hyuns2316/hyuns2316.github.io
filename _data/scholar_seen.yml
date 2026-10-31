@@ -2,3 +2,6 @@
 # Delete a line to have that paper proposed on the next run.
 seen:
 - "ICP Enhancement Algorithm for 6d Object Pose Trackingthm"
+- "VLM-based Object-centric 6DoF 3D Visual Grounding"
+- "A Correspondence Selection Method for Enhancing Robustness in 6-D Pose Estimation"
+- "An Efficient Initial Pose Estimation via Bayesian Search Space Reduction for Point Cloud-Based 6-D Object Pose Estimation"
