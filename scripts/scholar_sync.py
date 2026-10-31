@@ -169,10 +169,10 @@ def main():
     try:
         papers = fetch_serpapi() if SERPAPI_KEY else fetch_direct()
     except Exception as e:  # blocked or network error: fail loudly, change nothing
-        print(f"ERROR: {e}", file=sys.stderr)
+        print(f"::error::{e}")
         sys.exit(1)
     if not papers:
-        print("ERROR: no papers parsed from Scholar (page layout may have changed).", file=sys.stderr)
+        print("::error::No papers parsed from Scholar (page layout may have changed).")
         sys.exit(1)
     print(f"Scholar returned {len(papers)} papers.")
 
