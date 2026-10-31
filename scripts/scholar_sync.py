@@ -199,6 +199,7 @@ def fetch_orcid():
             "authors": "",
             "venue": (w.get("journal-title") or {}).get("value", ""),
             "year": ((date.get("year") or {}).get("value", "")),
+            "month": ((date.get("month") or {}).get("value", "")),
             "detail": f"https://doi.org/{doi}" if doi else ((w.get("url") or {}).get("value", "")),
             "link": "", "doi": doi, "type": w.get("type", ""),
             "put_code": w.get("put-code"),
@@ -215,6 +216,12 @@ def enrich_orcid(p):
             p["authors"] = ", ".join(names)
         if not p["venue"] and m.get("container-title"):
             p["venue"] = m["container-title"][0]
+        for key in ("published-online", "published-print", "published", "issued"):
+            parts = ((m.get(key) or {}).get("date-parts") or [[None]])[0]
+            if parts and parts[0]:
+                p["year"] = str(parts[0])
+                p["month"] = str(parts[1]) if len(parts) > 1 else p.get("month", "")
+                break
     if not p["authors"] and p.get("put_code"):
         r = requests.get(f"https://pub.orcid.org/v3.0/{ORCID_ID}/work/{p['put_code']}",
                          headers={"Accept": "application/json"}, timeout=30)
@@ -237,6 +244,34 @@ def report(papers, site):
     out += ["", "## On site but NOT in source"]
     out += [f"- {x.get('conference','')} | {x.get('title','')}" for k, x in site_by.items() if k not in src_by]
     Path(ROOT / "sync_report.md").write_text("\n".join(out) + "\n", encoding="utf-8")
+
+
+INDEX = ROOT / "index.md"
+MONTHS = ["Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.", "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."]
+
+
+def news_line(p) -> str:
+    try:
+        when = f"{MONTHS[int(p.get('month')) - 1]} {p['year']}"
+    except (TypeError, ValueError, IndexError):
+        when = str(p.get("year") or "")
+    link = p.get("link") or p.get("detail") or ""
+    venue = f"[{p['venue']}]({link})" if p.get("venue") and link else (p.get("venue") or "a journal")
+    return f'- **[{when}]** Our paper "{p["title"]}" has been published in {venue}.\n'
+
+
+def add_news(new):
+    """Insert news lines at the top of the News list in index.md (if the marker exists)."""
+    if not INDEX.exists():
+        return False
+    text = INDEX.read_text(encoding="utf-8")
+    marker = '<div class="news-list" markdown="1">\n\n'
+    i = text.find(marker)
+    if i < 0:
+        return False
+    i += len(marker)
+    INDEX.write_text(text[:i] + "".join(news_line(p) for p in new) + text[i:], encoding="utf-8")
+    return True
 
 
 def main():
@@ -294,6 +329,8 @@ def main():
     block = "".join(entry_text(p) for p in new)
     PUBS.write_text(head + block + rest.lstrip("\n"), encoding="utf-8")
 
+    news_added = add_news(new)
+
     seen_text = SEEN.read_text(encoding="utf-8").rstrip("\n") + "\n"
     seen_text += "".join(f"- {q(p['title'])}\n" for p in new)
     SEEN.write_text(seen_text, encoding="utf-8")
@@ -306,6 +343,8 @@ def main():
         "- Check the author list (Scholar sometimes abbreviates names).",
         "- Replace `conference_short: \"TODO\"` with the venue badge text.",
         "- Add a thumbnail under `assets/img/` and update `image:`; add a `.bib` file if wanted.",
+        *(["- News lines were added to `index.md` using the publication month; change it to the "
+           "acceptance month and edit the wording if you like."] if news_added else []),
         "- To skip a paper, delete its entry from `publications.yml` in this PR but keep it in "
         "`scholar_seen.yml`, then merge — it will not be proposed again.",
     ]
