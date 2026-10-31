@@ -177,6 +177,9 @@ def crossref(doi):
     return r.json().get("message", {})
 
 
+SKIP_TYPES = {"preprint"}  # ORCID work types never proposed
+
+
 def fetch_orcid():
     """Read the public ORCID record; authors come from Crossref via DOI (ORCID often lacks them)."""
     api = f"https://pub.orcid.org/v3.0/{ORCID_ID}"
@@ -186,6 +189,8 @@ def fetch_orcid():
     papers = []
     for g in r.json().get("group", []):
         w = g["work-summary"][0]
+        if w.get("type") in SKIP_TYPES:
+            continue
         ids = (w.get("external-ids") or {}).get("external-id", []) or []
         doi = next((i["external-id-value"] for i in ids if i.get("external-id-type") == "doi"), "")
         date = w.get("publication-date") or {}

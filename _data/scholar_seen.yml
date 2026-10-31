@@ -1,0 +1,4 @@
+# Titles already handled by the publication sync. Titles here are never proposed again.
+# Delete a line to have that paper proposed on the next run.
+seen:
+- "ICP Enhancement Algorithm for 6d Object Pose Trackingthm"
