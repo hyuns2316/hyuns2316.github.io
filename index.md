@@ -17,6 +17,9 @@ I am a Senior Researcher at the [Capital Regional Research Center](https://www.k
 
 <div class="news-list" markdown="1">
 
+- **[Oct. 2026]** Our paper on initial pose estimation via Bayesian search space reduction has been accepted to [IEEE Transactions on Automation Science and Engineering](https://doi.org/10.1109/TASE.2026.3744364).
+- **[Sep. 2026]** Our paper on correspondence selection for robust 6-D pose estimation has been accepted to [IEEE Transactions on Automation Science and Engineering](https://doi.org/10.1109/TASE.2026.3707929).
+- **[Jul. 2026]** Our paper on VLM-based 6DoF 3D visual grounding has been accepted to [Journal of Korea Robotics Society](https://doi.org/10.7746/jkros.2026.21.3.333).
 - **[Apr. 2026]** Our paper on the passive finger-tip changer has been accepted to [IEEE Robotics and Automation Letters](https://ieeexplore.ieee.org/document/11478076).
 - **[Jun. 2025]** Our paper on 6D object pose tracking has been accepted to [IEEE Access](https://ieeexplore.ieee.org/abstract/document/11036096).
 - **[Apr. 2025]** Our paper about head pose estimation is accepted to [Journal of King Saud University Computer and Information Sciences](https://link.springer.com/journal/44443).
