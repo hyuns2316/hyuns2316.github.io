@@ -4,7 +4,7 @@ layout: homepage
 
 ## About Me
 
-I am a Senior Researcher in the AI Humanoid Research Group at the Korea Institute of Robotics and Technology Convergence ([KIRO](https://www.kiro.re.kr)), Seoul, Republic of Korea. I received my B.S., M.S., and Ph.D. degrees in Electrical and Electronic Engineering from Hanyang University in 2015, 2017, and 2023, respectively. From 2019 to 2020, I was a Visiting Researcher with the Intelligent Mobile Platform Group at KU Leuven, Belgium. I then served as a BK Postdoctoral Research Fellow (2023) and a Research Assistant Professor (2024–2026) at the Research Institute of Engineering and Technology, Hanyang University. My research interests include multi-sensor fusion, object pose estimation, and robotic grasping.
+I am a Senior Researcher at the [Capital Regional Research Center](https://www.kiro.re.kr/eng/abt/map4.asp), AI Humanoid Research Group, Korea Institute of Robotics and Technology Convergence ([KIRO](https://www.kiro.re.kr)), Seoul, Republic of Korea. I received my B.S., M.S., and Ph.D. degrees in Electrical and Electronic Engineering from Hanyang University in 2015, 2017, and 2023, respectively. From 2019 to 2020, I was a Visiting Researcher with the Intelligent Mobile Platform Group at KU Leuven, Belgium. I then served as a BK Postdoctoral Research Fellow (2023) and a Research Assistant Professor (2024–2026) at the Research Institute of Engineering and Technology, Hanyang University. My research interests include multi-sensor fusion, object pose estimation, and robotic grasping.
 
 ## Research Interests
 
@@ -36,7 +36,7 @@ I am a Senior Researcher in the AI Humanoid Research Group at the Korea Institut
 ## Lectures
 
 Research Assistant Professor, Hanyang University
-(Mar 2025 ~ )
+(Mar 2025 ~ Aug 2026)
 
 ### 2026 Spring
 - ROB1001 Basic Introduction to Robotics ([link](https://github.com/normajeane-m/ROB1001))
