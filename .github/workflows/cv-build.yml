@@ -1,0 +1,36 @@
+name: Build CV
+
+on:
+  push:
+    branches: [main]
+    paths: ["cv/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cv-build
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compile cv/cv.tex
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: cv
+          root_file: cv.tex
+
+      - name: Publish PDF to assets/files/cv.pdf
+        run: |
+          cp cv/cv.pdf assets/files/cv.pdf
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/files/cv.pdf
+          git diff --cached --quiet && { echo "PDF unchanged"; exit 0; }
+          git commit -m "Rebuild CV PDF"
+          git push

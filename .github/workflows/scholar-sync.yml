@@ -47,6 +47,7 @@ jobs:
           add-paths: |
             _data/publications.yml
             index.md
+            cv/cv.tex
             _data/scholar_seen.yml
           commit-message: "Add new publications from ORCID"
           title: "New publications from ORCID"
