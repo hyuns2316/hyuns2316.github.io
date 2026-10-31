@@ -1,0 +1,4 @@
+_site/
+.scholar_sync_summary.md
+__pycache__/
+.DS_Store

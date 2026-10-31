@@ -1,0 +1,118 @@
+main:
+
+  - title: "Design of a Passive Finger-Tip Changer for Modular Robotic Manipulation"
+    authors: Geunhu Lee, <strong>Hyunsoo Shin</strong>, Ji-Hun Bae & Sungon Lee
+    conference_short: RA-L
+    conference: IEEE Robotics and Automation Letters, 2026.
+    pdf: https://ieeexplore.ieee.org/document/11478076/media#media
+    bibtex: ./assets/bib/hwang2025icp.bib
+    image: ./assets/img/tipchanger.gif
+    notes:
+    
+  - title: "Real-time in-hand 6-DoF object pose estimation based on tactile sensing"
+    authors: <strong>Hyunsoo Shin</strong>, Dohyun Kim, Jongmin Kim, Ji-Hun Bae & Sungon Lee
+    conference_short: KSMTE
+    conference: The Korean Society of Manufacturing Technology Engineers, 2025.
+    pdf: https://www.dbpia.co.kr/Journal/articleDetail?nodeId=NODE12307451
+    bibtex: ./assets/bib/hwang2025icp.bib
+    image: ./assets/img/tacpose.gif
+    notes:
+    
+  - title: "ICP Enhancement Algorithm for 6D Pose Tracking of Household Objects"
+    authors: Hyunho Hwang, <strong>Hyunsoo Shin</strong>, Ji-Hun Bae & Sungon Lee
+    conference_short: IEEE Access
+    conference: IEEE Access, 2025.
+    pdf: https://ieeexplore.ieee.org/document/11036096
+    bibtex: ./assets/bib/hwang2025icp.bib
+    image: ./assets/img/icp.gif
+    notes:
+
+  - title: "WQuatNet: Wide range quaternion-based head pose estimation"
+    authors: Redhwan Algabri, <strong>Hyunsoo Shin</strong>, Ahmed Abdu, Ji-Hun Bae & Sungon Lee
+    conference_short: J. King Saud Univ. - Comput. Inf. Sci.
+    conference: Journal of King Saud University - Computer and Information Sciences, 2025.
+    pdf: https://doi.org/10.1007/s44443-025-00034-1
+    bibtex: ./assets/bib/algabri2025wquatnet.bib
+    image: ./assets/img/wquatnet.png
+    notes:
+    
+  - title: "Effect of vibrotactile feedback and perception induced by transcranial magnetic stimulation over the primary motor cortex in virtual hand illusion"
+    authors: <strong>Hyunsoo Shin</strong>, Jaeho Lee, Geunhu Lee, Jaeyoung Park, Sungon Lee 
+    conference_short: Virtual Real.
+    conference: Virtual Reality, 2024.
+    pdf: https://doi.org/10.1007/s10055-024-01052-6
+    bibtex: ./assets/bib/shin2024effect.bib
+    image: ./assets/img/VHI_2024.gif
+    notes: 
+    
+  - title: "Real-time 6DoF full-range markerless head pose estimation"
+    authors: Redhwan Algabri, <strong>Hyunsoo Shin</strong>, Sungon Lee 
+    conference_short: EXPERT SYST APPL
+    conference: Expert Systems with Applications, 2024.
+    pdf: https://www.sciencedirect.com/science/article/pii/S0957417423027951
+    bibtex: ./assets/bib/algabri2024real.bib
+    image: ./assets/img/hpe_2024.gif
+    notes: 
+    
+  - title: "Segmentation-Based Depth Map Adjustment for Improved Grasping Pose Detection"
+    authors: <strong>Hyunsoo Shin</strong>, Muhammad Raheel Afzal, Sungon Lee
+    conference_short: J. Korea Robot.Soc
+    conference: Journal of Korea Robotics Society, 2024.
+    pdf: https://doi.org/10.7746/jkros.2024.19.1.016
+    bibtex: ./assets/bib/shin2024segmentation.bib
+    image: ./assets/img/grasping.gif
+    notes:
+  
+  - title: "Robotic transcranial magnetic stimulation in the treatment of depression: a pilot study"
+    authors: <strong>Hyunsoo Shin</strong> et al.
+    conference_short: Sci. Rep.
+    conference: Scientific Reports, 2023.
+    pdf: https://www.nature.com/articles/s41598-023-41044-1
+    bibtex: ./assets/bib/shin2023robotic.bib
+    image: ./assets/img/compensation_2022.gif
+    notes: 
+
+  - title: "A phased array ultrasound system with a robotic arm for neuromodulation"
+    authors: Jongbum Seo, <strong>Hyunsoo Shin</strong>, Sungtaek Cho, Sungon Lee, Wooseok Ryu, Su-Cheol Han, Goo Hwa Kang
+    conference_short: MED ENG PHYS
+    conference: Medical Engineering & Physics, 2023.
+    pdf: https://www.sciencedirect.com/science/article/abs/pii/S1350453323000784
+    bibtex: ./assets/bib/seo2023phased.bib
+    image: ./assets/img/BSS2023.png
+    
+    
+  - title: "Development of a wide area 3D scanning system with a rotating line laser"
+    authors: Jaeho Lee, <strong>Hyunsoo Shin</strong>, Sungon Lee
+    conference_short: Sensors
+    conference: Sensors MDPI, 2020.
+    pdf: https://www.mdpi.com/1424-8220/21/11/3885
+    bibtex: ./assets/bib/lee2021development.bib
+    image: ./assets/img/sensors2020.png
+    
+    
+  - title: "Preliminary results on increased situational awareness for inland vessels using onboard lidar"
+    authors: Senne Van Baelen, <strong>Hyunsoo Shin</strong>, Gerben Peeters, Muhammad Raheel Afzal, Gökay Yayla, Peter Slaets
+    conference_short: Global OCEANS
+    conference: "Global Oceans 2020: Singapore–US Gulf Coast"
+    pdf: https://ieeexplore.ieee.org/abstract/document/9606960
+    bibtex: ./assets/bib/van2020preliminary.bib
+    notes: Oral Presentation
+    image: ./assets/img/shoreline.png
+    
+  - title: "Development of a spherical positioning robot and neuro-navigation system for precise and repetitive non-invasive brain stimulation"
+    authors: <strong>Hyunsoo Shin</strong>, Wooseok Ryu, Sungtaek Cho, Woosung Yang, Sungon Lee
+    conference_short: Appl. Sci.
+    conference: Applied Sciences MDPI, 2019.
+    pdf: https://www.mdpi.com/2076-3417/9/21/4561
+    bibtex: ./assets/bib/shin2019dev.bib
+    image: ./assets/img/BSS.png
+    
+    
+  - title: "Integration of deep learning-based object recognition and robot manipulator for grasping objects"
+    authors: <strong>Hyunsoo Shin</strong>, Hyunho Hwang, Hyunseok Yoon, Sungon Lee
+    conference_short: UR
+    conference: International Conference on Ubiquitous Robots <strong>(UR)</strong>, 2019.
+    pdf: https://ieeexplore.ieee.org/abstract/document/8768650
+    bibtex: ./assets/bib/shin2019integ.bib
+    notes: Oral Presentation
+    image: ./assets/img/bin_2018.gif

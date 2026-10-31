@@ -1,0 +1,53 @@
+name: Scholar sync
+
+on:
+  schedule:
+    - cron: "17 0 * * 1"   # every Monday 09:17 KST (00:17 UTC)
+  workflow_dispatch:        # "Run workflow" button in the Actions tab
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: scholar-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4 pyyaml
+
+      - name: Check Google Scholar for new papers
+        env:
+          SCHOLAR_USER: kjrkW3AAAAAJ
+          OWNER_NAME: Hyunsoo Shin
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}   # optional; leave unset to scrape directly
+        run: python scripts/scholar_sync.py
+
+      - name: Read PR summary
+        id: summary
+        run: |
+          if [ -f .scholar_sync_summary.md ]; then echo "exists=true" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Open or update Pull Request
+        if: steps.summary.outputs.exists == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: scholar-sync
+          delete-branch: true
+          add-paths: |
+            _data/publications.yml
+            _data/scholar_seen.yml
+          commit-message: "Scholar sync: add new publications"
+          title: "Scholar sync: new publications"
+          body-path: .scholar_sync_summary.md
+          labels: scholar-sync
