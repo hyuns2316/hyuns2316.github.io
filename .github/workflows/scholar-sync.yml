@@ -46,6 +46,7 @@ jobs:
           delete-branch: true
           add-paths: |
             _data/publications.yml
+            index.md
             _data/scholar_seen.yml
           commit-message: "Add new publications from ORCID"
           title: "New publications from ORCID"

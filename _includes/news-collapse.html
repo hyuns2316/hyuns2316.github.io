@@ -1,0 +1,23 @@
+<!-- News: show the newest NEWS_VISIBLE items; the rest open with "Show more". -->
+<style>
+  .news-list li.news-hidden { display: none; }
+  .news-toggle { margin: 4px 0 8px; padding: 2px 10px; font-size: 0.85rem; cursor: pointer;
+                 background: none; border: 1px solid currentColor; border-radius: 4px; color: inherit; opacity: .75; }
+  .news-toggle:hover { opacity: 1; }
+</style>
+<script>
+  (function () {
+    var NEWS_VISIBLE = 5;
+    var items = document.querySelectorAll('.news-list li');
+    var btn = document.querySelector('.news-toggle');
+    if (!btn || items.length <= NEWS_VISIBLE) return;
+    var open = false;
+    function render() {
+      for (var i = NEWS_VISIBLE; i < items.length; i++) items[i].classList.toggle('news-hidden', !open);
+      btn.textContent = open ? 'Show less' : 'Show more (' + (items.length - NEWS_VISIBLE) + ')';
+    }
+    btn.hidden = false;
+    btn.addEventListener('click', function () { open = !open; render(); });
+    render();
+  })();
+</script>
