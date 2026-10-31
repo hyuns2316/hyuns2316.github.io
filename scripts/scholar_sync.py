@@ -165,19 +165,93 @@ def entry_text(p) -> str:
     )
 
 
+ORCID_ID = os.environ.get("ORCID_ID", "").strip()
+SOURCE = os.environ.get("SOURCE", "orcid" if ORCID_ID else ("serpapi" if SERPAPI_KEY else "scholar"))
+
+
+def crossref(doi):
+    r = requests.get(f"https://api.crossref.org/works/{doi}", timeout=30,
+                     headers={"User-Agent": "homepage-pub-sync (mailto:hyuns2316@gmail.com)"})
+    if r.status_code != 200:
+        return {}
+    return r.json().get("message", {})
+
+
+def fetch_orcid():
+    """Read the public ORCID record; authors come from Crossref via DOI (ORCID often lacks them)."""
+    api = f"https://pub.orcid.org/v3.0/{ORCID_ID}"
+    h = {"Accept": "application/json"}
+    r = requests.get(f"{api}/works", headers=h, timeout=30)
+    r.raise_for_status()
+    papers = []
+    for g in r.json().get("group", []):
+        w = g["work-summary"][0]
+        ids = (w.get("external-ids") or {}).get("external-id", []) or []
+        doi = next((i["external-id-value"] for i in ids if i.get("external-id-type") == "doi"), "")
+        date = w.get("publication-date") or {}
+        p = {
+            "title": ((w.get("title") or {}).get("title") or {}).get("value", ""),
+            "authors": "",
+            "venue": (w.get("journal-title") or {}).get("value", ""),
+            "year": ((date.get("year") or {}).get("value", "")),
+            "detail": f"https://doi.org/{doi}" if doi else ((w.get("url") or {}).get("value", "")),
+            "link": "", "doi": doi, "type": w.get("type", ""),
+            "put_code": w.get("put-code"),
+        }
+        papers.append(p)
+    return papers
+
+
+def enrich_orcid(p):
+    if p.get("doi"):
+        m = crossref(p["doi"])
+        names = [" ".join(x for x in (a.get("given"), a.get("family")) if x) for a in m.get("author", [])]
+        if names:
+            p["authors"] = ", ".join(names)
+        if not p["venue"] and m.get("container-title"):
+            p["venue"] = m["container-title"][0]
+    if not p["authors"] and p.get("put_code"):
+        r = requests.get(f"https://pub.orcid.org/v3.0/{ORCID_ID}/work/{p['put_code']}",
+                         headers={"Accept": "application/json"}, timeout=30)
+        if r.ok:
+            cs = ((r.json().get("contributors") or {}).get("contributor", [])) or []
+            names = [((c.get("credit-name") or {}).get("value", "")) for c in cs]
+            p["authors"] = ", ".join(n for n in names if n)
+
+
+def report(papers, site):
+    """Write a comparison of the source record vs. the site list (diagnostic only)."""
+    site_by = {norm(x.get("title", "")): x for x in site}
+    src_by = {norm(p["title"]): p for p in papers}
+    out = [f"# {SOURCE} vs. site\n", f"Source has {len(papers)} works; site lists {len(site)}.\n",
+           "## In source AND on site"]
+    out += [f"- {p['year']} | {p['title']}" for k, p in src_by.items() if k in site_by]
+    out += ["", "## In source but NOT on site"]
+    out += [f"- {p['year']} | {p['type']} | {p['title']} | {p['venue']} | doi:{p.get('doi','')}"
+            for k, p in src_by.items() if k not in site_by]
+    out += ["", "## On site but NOT in source"]
+    out += [f"- {x.get('conference','')} | {x.get('title','')}" for k, x in site_by.items() if k not in src_by]
+    Path(ROOT / "sync_report.md").write_text("\n".join(out) + "\n", encoding="utf-8")
+
+
 def main():
+    fetch = {"orcid": fetch_orcid, "serpapi": fetch_serpapi, "scholar": fetch_direct}[SOURCE]
     try:
-        papers = fetch_serpapi() if SERPAPI_KEY else fetch_direct()
+        papers = fetch()
     except Exception as e:  # blocked or network error: fail loudly, change nothing
         print(f"::error::{e}")
         sys.exit(1)
     if not papers:
-        print("::error::No papers parsed from Scholar (page layout may have changed).")
+        print(f"::error::No papers returned from {SOURCE}.")
         sys.exit(1)
-    print(f"Scholar returned {len(papers)} papers.")
+    print(f"{SOURCE} returned {len(papers)} papers.")
 
-    site_titles = {norm(x.get("title", "")) for x in
-                   (yaml.safe_load(PUBS.read_text(encoding="utf-8")) or {}).get("main", [])}
+    site = (yaml.safe_load(PUBS.read_text(encoding="utf-8")) or {}).get("main", [])
+    site_titles = {norm(x.get("title", "")) for x in site}
+
+    if os.environ.get("REPORT"):
+        report(papers, site)
+        return
 
     if not SEEN.exists():
         titles = sorted({p["title"] for p in papers})
@@ -201,12 +275,13 @@ def main():
         print("No new papers.")
         return
 
+    enrich = {"orcid": enrich_orcid, "scholar": enrich_direct}.get(SOURCE)
     for p in new:
-        if not SERPAPI_KEY:
+        if enrich:
             try:
-                enrich_direct(p)
+                enrich(p)
             except Exception as e:
-                print(f"warning: could not open detail page for {p['title']!r}: {e}")
+                print(f"warning: could not fetch details for {p['title']!r}: {e}")
 
     text = PUBS.read_text(encoding="utf-8")
     m = re.search(r"^main:\s*\n", text, re.M)
