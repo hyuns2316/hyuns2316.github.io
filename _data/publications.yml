@@ -1,29 +1,26 @@
 main:
 
-  # TODO(scholar-sync): check authors, set conference_short / image / bibtex
   - title: "VLM-based Object-centric 6DoF 3D Visual Grounding"
     authors: "Seongyeop Lee, <strong>Hyunsoo Shin</strong>, Gyubeom Jo, Ji-Hun Bae, Sungon Lee"
-    conference_short: "TODO"
+    conference_short: J. Korea Robot.Soc
     conference: "Journal of Korea Robotics Society, 2026."
     pdf: https://doi.org/10.7746/jkros.2026.21.3.333
     bibtex:
     image: ./assets/img/teaser_example.png
     notes:
 
-  # TODO(scholar-sync): check authors, set conference_short / image / bibtex
   - title: "A Correspondence Selection Method for Enhancing Robustness in 6-D Pose Estimation"
     authors: "Hyunho Hwang, <strong>Hyunsoo Shin</strong>, Jaeho Lee, Geunhu Lee, Ji-Hun Bae, Sungon Lee"
-    conference_short: "TODO"
+    conference_short: T-ASE
     conference: "IEEE Transactions on Automation Science and Engineering, 2026."
     pdf: https://doi.org/10.1109/TASE.2026.3707929
     bibtex:
     image: ./assets/img/teaser_example.png
     notes:
 
-  # TODO(scholar-sync): check authors, set conference_short / image / bibtex
   - title: "An Efficient Initial Pose Estimation via Bayesian Search Space Reduction for Point Cloud-Based 6-D Object Pose Estimation"
     authors: "Hyunho Hwang, <strong>Hyunsoo Shin</strong>, Ji-Hun Bae, Sungon Lee, Jae-Han Park"
-    conference_short: "TODO"
+    conference_short: T-ASE
     conference: "IEEE Transactions on Automation Science and Engineering, 2026."
     pdf: https://doi.org/10.1109/TASE.2026.3744364
     bibtex:
