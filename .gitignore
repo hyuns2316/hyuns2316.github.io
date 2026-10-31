@@ -2,3 +2,9 @@ _site/
 .scholar_sync_summary.md
 __pycache__/
 .DS_Store
+cv/*.pdf
+cv/*.log
+cv/*.aux
+cv/*.fls
+cv/*.fdb_latexmk
+cv/*.out

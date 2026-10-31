@@ -14,7 +14,7 @@ canonical: https://minimal-light-theme.yliu.me/
 # Links 
 # If you don't need one of them, you may delete the corresponding line.
 google_scholar: https://scholar.google.com/citations?hl=ko&user=kjrkW3AAAAAJ
-cv_link: assets/files/cv_2026.pdf
+cv_link: assets/files/cv.pdf
 github_link: https://gitlab.com/normajeane
 linkedin: https://www.linkedin.com/in/hyunsoo-shin-48b4a1147
 #twitter: https://twitter.com/
@@ -54,4 +54,5 @@ exclude:
   - minimal-light.gemspec
   - html_source_file/
   - scripts/
+  - cv/
   - .scholar_sync_summary.md

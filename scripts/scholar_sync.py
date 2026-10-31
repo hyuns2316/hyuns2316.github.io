@@ -260,6 +260,56 @@ def news_line(p) -> str:
     return f'- **[{when}]** Our paper "{p["title"]}" has been published in {venue}.\n'
 
 
+CV = ROOT / "cv" / "cv.tex"
+DOMESTIC_HINTS = ("korea", "korean", "ksmte", "로봇")  # venues listed under "Domestic Journal"
+
+
+def cv_author(name: str) -> str:
+    """'Ji-Hun Bae' -> 'J.-H. Bae'; the owner is bolded."""
+    parts = name.replace(".", " ").split()
+    if len(parts) < 2:
+        return name
+    initials = " ".join("-".join(f"{x[0]}." for x in g.split("-") if x) for g in parts[:-1])
+    short = f"{initials} {parts[-1]}"
+    owner = OWNER_NAME.split()
+    if parts[-1] == owner[-1] and parts[0][0] == owner[0][0]:
+        return rf"\textbf{{{short}}}"
+    return short
+
+
+def tex_escape(t: str) -> str:
+    return re.sub(r"([&%$#_])", r"\\\1", t or "")
+
+
+def cv_entry(p) -> str:
+    names = [cv_author(n.strip()) for n in re.sub(r"<[^>]+>", "", p.get("authors", "")).split(",") if n.strip()]
+    authors = names[0] if len(names) < 2 else ", ".join(names[:-1]) + " and " + names[-1]
+    return (f"{authors}, ``{tex_escape(p['title'])},\" \\textit{{{tex_escape(p.get('venue', ''))}}}, "
+            f"{p.get('year', '')}.\n\n")
+
+
+def add_cv(new):
+    """Insert new papers at the top of the matching CV section (International / Domestic Journal)."""
+    if not CV.exists():
+        return False
+    text = CV.read_text(encoding="utf-8")
+    changed = False
+    for p in reversed(new):
+        domestic = any(h in (p.get("venue") or "").lower() for h in DOMESTIC_HINTS)
+        header = r"\section{\sc Domestic Journal}" if domestic else r"\section{\sc International Journal}"
+        i = text.find(header)
+        if i < 0:
+            continue
+        i = text.index("\n", i) + 1
+        while text[i:i + 1] == "\n":
+            i += 1
+        text = text[:i] + cv_entry(p) + text[i:]
+        changed = True
+    if changed:
+        CV.write_text(text, encoding="utf-8")
+    return changed
+
+
 def add_news(new):
     """Insert news lines at the top of the News list in index.md (if the marker exists)."""
     if not INDEX.exists():
@@ -330,6 +380,7 @@ def main():
     PUBS.write_text(head + block + rest.lstrip("\n"), encoding="utf-8")
 
     news_added = add_news(new)
+    cv_added = add_cv(new)
 
     seen_text = SEEN.read_text(encoding="utf-8").rstrip("\n") + "\n"
     seen_text += "".join(f"- {q(p['title'])}\n" for p in new)
@@ -345,6 +396,8 @@ def main():
         "- Add a thumbnail under `assets/img/` and update `image:`; add a `.bib` file if wanted.",
         *(["- News lines were added to `index.md` using the publication month; change it to the "
            "acceptance month and edit the wording if you like."] if news_added else []),
+        *(["- The papers were also added to `cv/cv.tex` (International/Domestic Journal by venue); "
+           "check the section and details. The CV PDF is rebuilt automatically after merging."] if cv_added else []),
         "- To skip a paper, delete its entry from `publications.yml` in this PR but keep it in "
         "`scholar_seen.yml`, then merge — it will not be proposed again.",
     ]
