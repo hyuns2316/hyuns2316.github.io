@@ -373,6 +373,13 @@ def main():
             except Exception as e:
                 print(f"warning: could not fetch details for {p['title']!r}: {e}")
 
+    def when(p):  # newest first, matching the site's order
+        try:
+            return (int(p.get("year") or 0), int(p.get("month") or 0))
+        except ValueError:
+            return (0, 0)
+    new.sort(key=when, reverse=True)
+
     text = PUBS.read_text(encoding="utf-8")
     m = re.search(r"^main:\s*\n", text, re.M)
     head, rest = (text[:m.start()] + "main:\n\n", text[m.end():]) if m else ("main:\n\n", text)
