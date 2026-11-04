@@ -15,7 +15,7 @@ main:
     conference: "IEEE Transactions on Automation Science and Engineering, 2026."
     pdf: https://doi.org/10.1109/TASE.2026.3707929
     bibtex:
-    image: ./assets/img/teaser_example.png
+    image: ./assets/img/cor_sel.png
     notes:
 
   - title: "VLM-based Object-centric 6DoF 3D Visual Grounding"
@@ -24,7 +24,7 @@ main:
     conference: "Journal of Korea Robotics Society, 2026."
     pdf: https://doi.org/10.7746/jkros.2026.21.3.333
     bibtex:
-    image: ./assets/img/teaser_example.png
+    image: ./assets/img/vlm_3dvg.png
     notes:
 
   - title: "Design of a Passive Finger-Tip Changer for Modular Robotic Manipulation"
