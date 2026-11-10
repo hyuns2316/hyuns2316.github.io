@@ -100,7 +100,7 @@
       <br>
 
       {% if site.enable_footnote %}
-      <p><small>Powered by Jekyll and <a href="https://github.com/yaoyao-liu/minimal-light" target="_blank" rel="noopener">Minimal Light</a> theme.  Last updated: February 03, 2025.</small></p>
+      <p><small>Powered by Jekyll and <a href="https://github.com/yaoyao-liu/minimal-light" target="_blank" rel="noopener">Minimal Light</a> theme.  Last updated: {{ site.time | date: "%B %d, %Y" }}.</small></p>
       {% endif %}
 
       </section>

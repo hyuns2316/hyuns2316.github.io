@@ -1,185 +1,98 @@
-# The Minimal Light Theme
+# 홈페이지 관리 안내
 
-[![LICENSE](https://img.shields.io/github/license/yaoyao-liu/minimal-light?style=flat-square&logo=creative-commons&color=EF9421)](https://github.com/yaoyao-liu/minimal-light/blob/main/LICENSE)
+https://hyuns2316.github.io 의 소스입니다. Jekyll 테마는 [Minimal Light](https://github.com/yaoyao-liu/minimal-light)를 씁니다.
 
-\[[Demo the theme](https://minimal-light-theme.yliu.me/)\]  \[[简体中文](https://github.com/yaoyao-liu/minimal-light/blob/master/README_zh_Hans.md) | [繁體中文](https://github.com/yaoyao-liu/minimal-light/blob/master/README_zh_Hant.md) | [Deutsche](https://github.com/yaoyao-liu/minimal-light/blob/master/README_de.md)\]
- 
-*This is the source code of my homepage. I build this website based on [minimal](https://github.com/orderedlist/minimal).*
-<br>
-*Feel free to use and share the source code anywhere you like.*
+**핵심 원리**: 이 레포의 `main` 브랜치가 바뀌면 GitHub Pages가 1~2분 안에 사이트를 다시 만듭니다.
+자동화는 직접 `main`을 고치지 않고 **Pull Request(PR)** 를 만들기만 합니다. PR을 **Merge**해야 사이트에 반영됩니다.
 
-The latest version of my homepage is available here: [[link](https://github.com/yaoyao-liu/yaoyao-liu.github.io)]
+---
 
-## Features
+## 1. 무엇을 고치면 어디가 바뀌나
 
-- Simple and elegant personal homepage theme
-- Jekyll theme, automatically deployed by GitHub Pages
-- Basic search engine optimization
-- Mobile friendly
-- Supporting Markdown 
-- Supporting dark mode
+| 바꾸고 싶은 것 | 고칠 파일 |
+|---|---|
+| 이름, 직위, 소속, 이메일, 상단 링크(Scholar, CV, GitHub, LinkedIn) | `_config.yml` |
+| About Me, Research Interests, News, Lectures | `index.md` |
+| Publications 목록 | `_data/publications.yml` |
+| 논문 썸네일 이미지 | `assets/img/` 에 업로드 (아래 3번 참고) |
+| BibTeX 파일 | `assets/bib/` |
+| CV 내용 | `cv/cv.tex` (PDF는 자동 생성, 아래 4번 참고) |
+| 프로필 사진 | `assets/img/avatar.png` 를 같은 이름으로 교체 |
+| 페이지 구조, 맨 아래 문구 | `_layouts/homepage.html` |
 
-## Project Architecture
+- 파일은 GitHub 웹에서 파일을 열고 연필(✏️) 버튼으로 바로 고칠 수 있습니다.
+- 맨 아래 **Last updated** 날짜는 사이트가 다시 만들어질 때마다 자동으로 바뀝니다.
+- News는 최신 5개만 보이고 나머지는 "Show more"로 접힙니다. 개수는 `_includes/news-collapse.html` 의 `NEWS_VISIBLE` 값입니다.
 
-```
-.
-├── _data                    
-|   └── publications.yml                      # the YAML file for publications
-├── _includes                    
-|   ├── publications.md                       # the Markdown file for publications
-|   └── services.md                           # the Markdown file for services
-├── _layouts                  
-|   └── homepage.html                         #  the html template for the homepage 
-├── _sass
-|   ├── minimal-light.scss                    #  this file will be compiled into a CSS file to control the style of the page              
-|   └── minimal-light-no-dark-mode.scss       #  this file is similar to minimal-light.scss with the dark mode disabled
-├── assets                                    #  some files
-├── html_source_file                          #  compiled HTML files
-├── .gitignore                                #  this file specifies intentionally untracked files that Git should ignore
-├── CNAME                                     #  the custom domain, will be used by GitHub page sevice
-├── Gemfile                                   #  a RubyGems related file
-├── LICENSE                                   #  the license file
-├── README.md                                 #  the readme file (English)
-├── README_de.md                              #  the readme file (German)
-├── README_zh_Hans.md                         #  the readme file (Simplified Chinese)
-├── README_zh_Hant.md                         #  the readme file (Traditional Chinese)
-├── _config.yml                               #  the Jekyll configuration file, including some options of the page  
-└── index.md                                  #  the content of the index page, using Markdown
-```
-
-## Getting Started
-
-This template can be used in the following two ways: 
-- **Using with the GitHub Pages Service.** GitHub will provide you with a server to generate and host web pages.
-- **Using locally with Jekyll.** You may install Jekyll on your own computer and generate static web pages (i.e., HTML files) with this template. After that, you may upload the HTML files to your server.
-
-The detailed instructions are available below.
-
-
-### Using with the GitHub Pages Service
-
-There are two ways to use this template on GitHub:
-
-#### Fork this repository
-- Fork this repository (or [use this repository as a template](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template)) and change the name to `your-username.github.io`.
-
-- Enable the GitHub pages for that repository following the steps [here](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site).
-
-#### Using this repository as a remote theme
-To use this theme, add the following to your repository's `_config.yml`:
+### Publications 항목 형식 (`_data/publications.yml`)
 
 ```yaml
-remote_theme: yaoyao-liu/minimal-light
+  - title: "논문 제목"
+    authors: Geunhu Lee, <strong>Hyunsoo Shin</strong>, Ji-Hun Bae & Sungon Lee
+    conference_short: RA-L              # 썸네일 아래 뱃지
+    conference: IEEE Robotics and Automation Letters, 2026.
+    pdf: https://doi.org/...            # 제목과 PDF 버튼 링크
+    bibtex: ./assets/bib/xxx.bib        # 없으면 비워 두기
+    image: ./assets/img/xxx.gif
+    notes: Oral Presentation            # 빨간 강조 문구, 없으면 비워 두기
 ```
 
-Please note that adding the above line will directly apply all the default settings in this repository to yours.
+위에 있을수록 먼저 보입니다. 최신 논문을 맨 위에 둡니다.
 
-If you hope to edit any files (e.g., `index.md`), you still need to copy them to your repository.
+---
 
-### Using Locally with Jekyll
+## 2. 새 논문 자동 감지 (ORCID 기준)
 
-First, install [Ruby](https://www.ruby-lang.org/en/) and [Jekyll](https://jekyllrb.com/). The install instructions can be found here: <https://jekyllrb.com/docs/installation/#guides>
+- **언제**: 매주 월요일 오전 9시경 (Actions 탭 → *Publication sync (ORCID)* → *Run workflow* 로 즉시 실행 가능)
+- **무엇을**: ORCID(`0000-0003-1159-1582`)에 새로 생긴 논문을 찾아 PR을 만듭니다. PR에는 다음이 들어 있습니다.
+  - `publications.yml` 맨 위에 초안 항목 (저자는 DOI로 자동 채움, 뱃지는 `TODO`, 썸네일은 예시 이미지)
+  - `index.md` News에 한 줄 (날짜는 출판 월 기준)
+  - `cv/cv.tex` 의 International Journal 또는 Domestic Journal 맨 위에 한 줄
+- **할 일**: PR의 *Files changed* 에서 `conference_short: "TODO"` 를 뱃지 이름으로 바꾸고, News 날짜를 채택 월로 고친 뒤 Merge.
+- **전제**: ORCID에 논문이 올라와 있어야 합니다. ORCID 설정에서 Crossref 자동 업데이트를 켜 두면 DOI 있는 논문은 자동으로 들어갑니다.
+- **이미 처리한 논문 목록**: `_data/scholar_seen.yml`. 여기 있는 제목은 다시 제안되지 않습니다. 줄을 지우면 다음 실행 때 다시 제안됩니다.
+- 기존 항목을 지우거나 고치는 기능은 없습니다. ORCID에 없는 논문도 사이트에 그대로 남습니다.
+- 프리프린트는 자동으로 제외합니다.
 
-Then, clone this repository:
+## 3. 썸네일 자동 연결
 
-```bash
-git clone https://github.com/yaoyao-liu/minimal-light.git
-cd minimal-light
+- `assets/img/` 에 이미지(png, jpg, gif, webp)를 **업로드만** 하면 됩니다.
+- 썸네일이 아직 예시 이미지인 논문에 자동으로 연결하는 PR이 만들어집니다.
+- 짝을 찾는 방법: 파일 이름의 단어가 논문 제목 단어의 앞부분과 맞으면 연결합니다 (예: `cor_sel.png` → **Cor**respondence **Sel**ection). 이름이 안 맞아도 남은 논문과 이미지가 각각 하나뿐이면 둘을 연결합니다.
+- PR에서 짝이 맞는지 확인하고 Merge. 틀렸으면 `image:` 줄을 고치면 됩니다.
+
+## 4. CV 자동 빌드
+
+- CV 원본은 `cv/cv.tex` (양식 파일 `cv/res.cls`) 입니다.
+- `cv/` 안의 파일이 바뀌어 `main`에 반영되면, PDF를 자동으로 컴파일해서 `assets/files/cv.pdf` 로 올립니다 (Actions → *Build CV*).
+- 상단 CV 링크는 항상 `assets/files/cv.pdf` 를 가리키므로, 해가 바뀌어도 링크를 고칠 필요가 없습니다.
+- CV 양식을 바꿔도 `\section{\sc International Journal}`, `\section{\sc Domestic Journal}` 제목을 유지하면 새 논문 자동 추가가 계속 동작합니다.
+
+---
+
+## 5. 파일 구조
+
 ```
-Install and run:
-
-```bash
-bundle install
-bundle add webrick
-bundle exec jekyll server
+_config.yml                  이름·소속·링크 등 기본 정보
+index.md                     About Me, Research Interests, News, Lectures
+_data/publications.yml       Publications 목록
+_data/scholar_seen.yml       자동화가 이미 처리한 논문 제목
+_includes/publications.md    Publications 표시 형식
+_includes/news-collapse.html News 접기 기능
+_layouts/homepage.html       페이지 전체 틀
+assets/img/  assets/bib/  assets/files/   이미지, BibTeX, CV PDF
+cv/                          CV LaTeX 원본
+scripts/scholar_sync.py      새 논문 감지 스크립트 (ORCID)
+scripts/thumb_sync.py        썸네일 연결 스크립트
+.github/workflows/           자동화 설정
+  scholar-sync.yml           매주 ORCID 확인 → PR
+  thumb-sync.yml             이미지 업로드 시 → PR
+  cv-build.yml               cv/ 변경 시 → PDF 빌드
 ```
-View the live page using `localhost`:
-<http://localhost:4000>. You can get the HTML files in `_site` folder.
 
-### Using the HTML version
+## 6. 문제가 생겼을 때
 
-The compiled HTML files are available in the `html_source_file` folder. If you don't like Jekyll, you may directly edit and use the HTML version.
-
-## Customizing
-
-### Configuration variables
-
-The Minimal Light theme will respect the following variables, if set in your site's `_config.yml`:
-
-  ```yaml
-# Basic Information 
-title: Your Name
-position: Ph.D. Student
-affiliation: Your Affiliation
-email: yourname (at) example.edu
-
-# Search Engine Optimization (SEO)
-# The following information is used to improve the website traffic from search engines, e.g., Google.
-keywords: minimal light
-description: The Minimal Light is a simple and elegant jekyll theme for academic personal homepage.
-canonical: https://minimal-light-theme.yliu.me/
-
-# Links 
-# If you don't need one of them, you may delete the corresponding line.
-google_scholar: https://scholar.google.com/
-cv_link: assets/files/curriculum_vitae.pdf
-github_link: https://github.com/
-linkedin: https://www.linkedin.com/
-twitter: https://twitter.com/
-
-# Images (e.g., your profile picture and your website's favicon) 
-# "favicon" and "favicon_dark" are used for the light and dark modes, respectively. 
-avatar: ./assets/img/avatar.png
-favicon: ./assets/img/favicon.png
-favicon_dark: ./assets/img/favicon-dark.png
-
-# Footnote
-# You may use the option to disable the footnote, "Powered by Jekyll and Minimal Light theme."
-enable_footnote: true
-
-# Auto Dark Mode
-# You may use the option to disable the automatic dark theme
-auto_dark_mode: true
-
-# Font
-# You can use this option to choose between Serif or Sans Serif fonts.
-font: "Serif" # or "Sans Serif"
-
-# Google Analytics ID
-# Please remove this if you don't use Google Analytics
-google_analytics: UA-111540567-4
-  ```
-### Edit `index.md`
-
-Create `index.md` and add your personal information. It supports **Markdown** and **HTML** syntax.
-
-### Edit included files
-
-There are two markdown files included in `index.md`. They are `_includes/publications.md` and `_includes/service.md`, respectively. These two files also support **Markdown** and **HTML** syntax. If you don't hope to include these two files, you may remove the following lines in `index.md`:
-https://github.com/yaoyao-liu/minimal-light/blob/b38070cd0b6bce45d8a885f3828549af8f82b7cb/index.md?plain=1#L21-L23
-
-If you hope to edit the publication list without changing the format, you may edit `_data/publications.yml`:
-https://github.com/yaoyao-liu/minimal-light/blob/77b1b3b31d4561091bcd739f37a2e1880e8b5ca5/_data/publications.yml#L3-L11
-
-
-### Stylesheet
-
-If you'd like to add your own custom styles, you may edit `_sass/minimal-light.scss`.
-
-### Layouts
-
-If you'd like to change the theme's HTML layout, you may edit `_layout/homepage.html`.
-
-## License
-
-This work is licensed under a [Creative Commons Zero v1.0 Universal](https://github.com/yaoyao-liu/minimal-light/blob/master/LICENSE) License.
-
-## Acknowledgements
-
-Our project uses the source code from the following repositories:
-
-* [pages-themes/minimal](https://github.com/pages-themes/minimal)
-
-* [orderedlist/minimal](https://github.com/orderedlist/minimal)
-
-* [al-folio](https://github.com/alshedivat/al-folio)
+- **사이트가 안 바뀜**: PR을 Merge했는지 확인 → Actions 탭에서 *pages build and deployment* 가 초록색인지 확인 → 브라우저 새로고침(캐시).
+- **Actions가 빨간색**: 해당 실행을 눌러 오류 메시지 확인. ORCID 서버 일시 장애라면 다음 주에 자동으로 다시 시도합니다.
+- **자동화가 PR을 못 만듦**: Settings → Actions → General → *Allow GitHub Actions to create and approve pull requests* 가 켜져 있어야 합니다.
+- **자동화를 끄고 싶음**: Actions 탭에서 해당 workflow 선택 → 오른쪽 위 `···` → *Disable workflow*.

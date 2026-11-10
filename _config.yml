@@ -56,3 +56,5 @@ exclude:
   - scripts/
   - cv/
   - .scholar_sync_summary.md
+  - .thumb_sync_summary.md
+  - new_images.txt
