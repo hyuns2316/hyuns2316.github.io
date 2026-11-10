@@ -1,0 +1,49 @@
+name: Thumbnail sync
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "assets/img/**"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: thumb-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Match new images to papers without a thumbnail
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+        run: |
+          git diff --name-only --diff-filter=A "$BEFORE" "$AFTER" -- assets/img > new_images.txt || true
+          cat new_images.txt
+          [ -s new_images.txt ] && xargs -d '\n' python scripts/thumb_sync.py < new_images.txt || true
+
+      - name: Check for changes
+        id: summary
+        run: |
+          if [ -f .thumb_sync_summary.md ]; then echo "exists=true" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Open Pull Request
+        if: steps.summary.outputs.exists == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: thumb-sync
+          delete-branch: true
+          add-paths: _data/publications.yml
+          commit-message: "Set thumbnails from uploaded images"
+          title: "Set thumbnails from uploaded images"
+          body-path: .thumb_sync_summary.md
+          labels: thumb-sync

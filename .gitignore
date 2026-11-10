@@ -8,3 +8,5 @@ cv/*.aux
 cv/*.fls
 cv/*.fdb_latexmk
 cv/*.out
+.thumb_sync_summary.md
+new_images.txt

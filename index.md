@@ -17,6 +17,10 @@ I am a Senior Researcher at the [Capital Regional Research Center](https://www.k
 
 <div class="news-list" markdown="1">
 
+- **[Nov. 2026]** Our paper on sparse-contact hypothesis generation for tactile 6D object pose estimation via correspondence graph optimization has been accepted to [IEEE Robotics and Automation Letters](https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=7083369).
+- **[Nov. 2026]** We submitted a paper on camera calibration refinement via null-motion-constrained optimization to [IEEE Robotics and Automation Letters](https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=7083369).
+- **[Nov. 2026]** We submitted a paper on object-centric robot motion generation via semantic grounding and LLM agents to [Intelligent Service Robotics](https://link.springer.com/journal/11370).
+- **[Oct. 2026]** We submitted the final revision of our paper on well-conditioned poses for hand-eye calibration to [IEEE Robotics and Automation Letters](https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=7083369).
 - **[Oct. 2026]** Our paper on initial pose estimation via Bayesian search space reduction has been accepted to [IEEE Transactions on Automation Science and Engineering](https://doi.org/10.1109/TASE.2026.3744364).
 - **[Sep. 2026]** Our paper on correspondence selection for robust 6-D pose estimation has been accepted to [IEEE Transactions on Automation Science and Engineering](https://doi.org/10.1109/TASE.2026.3707929).
 - **[Jul. 2026]** Our paper on VLM-based 6DoF 3D visual grounding has been accepted to [Journal of Korea Robotics Society](https://doi.org/10.7746/jkros.2026.21.3.333).
