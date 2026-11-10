@@ -6,7 +6,7 @@ main:
     conference: "IEEE Transactions on Automation Science and Engineering, 2026."
     pdf: https://doi.org/10.1109/TASE.2026.3744364
     bibtex:
-    image: ./assets/img/teaser_example.png
+    image: ./assets/img/baysian_search_6d.png
     notes:
 
   - title: "A Correspondence Selection Method for Enhancing Robustness in 6-D Pose Estimation"
