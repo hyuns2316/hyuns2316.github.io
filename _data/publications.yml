@@ -1,5 +1,14 @@
 main:
 
+  - title: "Sparse-Contact Hypothesis Generation for Tactile 6D Object Pose Estimation Via Correspondence Graph Optimization"
+    authors: "Hyunho Hwang, <strong>Hyunsoo Shin</strong>, Jae-Han Park"
+    conference_short: RA-L
+    conference: "IEEE Robotics and Automation Letters, 2026."
+    pdf: https://doi.org/10.1109/LRA.2026.3754607
+    bibtex:
+    image: ./assets/img/teaser_example.png
+    notes:
+
   - title: "An Efficient Initial Pose Estimation via Bayesian Search Space Reduction for Point Cloud-Based 6-D Object Pose Estimation"
     authors: "Hyunho Hwang, <strong>Hyunsoo Shin</strong>, Ji-Hun Bae, Sungon Lee, Jae-Han Park"
     conference_short: T-ASE
