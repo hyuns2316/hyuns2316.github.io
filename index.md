@@ -17,6 +17,7 @@ I am a Senior Researcher at the [Capital Regional Research Center](https://www.k
 
 <div class="news-list" markdown="1">
 
+- **[2026]** Our paper "Sparse-Contact Hypothesis Generation for Tactile 6D Object Pose Estimation Via Correspondence Graph Optimization" has been published in [IEEE Robotics and Automation Letters](https://doi.org/10.1109/LRA.2026.3754607).
 - **[Nov. 2026]** Our paper on sparse-contact hypothesis generation for tactile 6D object pose estimation via correspondence graph optimization has been accepted to [IEEE Robotics and Automation Letters](https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=7083369).
 - **[Nov. 2026]** We submitted a paper on camera calibration refinement via null-motion-constrained optimization to [IEEE Robotics and Automation Letters](https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=7083369).
 - **[Nov. 2026]** We submitted a paper on object-centric robot motion generation via semantic grounding and LLM agents to [Intelligent Service Robotics](https://link.springer.com/journal/11370).
