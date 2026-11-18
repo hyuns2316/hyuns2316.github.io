@@ -150,13 +150,33 @@ def bold_owner(authors: str) -> str:
     return pat.sub(lambda m: f"<strong>{m.group(1)}</strong>", authors, count=1)
 
 
+BADGES = {  # venue keyword -> badge; unknown venues get "TODO"
+    "robotics and automation letters": "RA-L",
+    "transactions on automation science": "T-ASE",
+    "transactions on robotics": "T-RO",
+    "transactions on industrial electronics": "TIE",
+    "transactions on mechatronics": "TMECH",
+    "ieee access": "IEEE Access",
+    "expert systems with applications": "ESWA",
+    "intelligent service robotics": "ISR",
+    "korea robotics society": "J. Korea Robot.Soc",
+    "scientific reports": "Sci. Rep.",
+    "sensors": "Sensors",
+    "virtual reality": "Virtual Reality",
+}
+
+
+def badge(venue: str) -> str:
+    v = (venue or "").lower()
+    return next((b for k, b in BADGES.items() if k in v), "TODO")
+
+
 def entry_text(p) -> str:
     venue = ", ".join(x for x in (p["venue"], p["year"]) if x)
     return (
-        f"  # TODO(scholar-sync): check authors, set conference_short / image / bibtex\n"
         f"  - title: {q(p['title'])}\n"
         f"    authors: {q(bold_owner(p['authors']))}\n"
-        f"    conference_short: \"TODO\"\n"
+        f"    conference_short: {q(badge(p.get('venue', '')))}\n"
         f"    conference: {q(venue + '.' if venue else '')}\n"
         f"    pdf: {p['link'] or p['detail']}\n"
         f"    bibtex:\n"
@@ -171,7 +191,7 @@ SOURCE = os.environ.get("SOURCE", "orcid" if ORCID_ID else ("serpapi" if SERPAPI
 
 def crossref(doi):
     r = requests.get(f"https://api.crossref.org/works/{doi}", timeout=30,
-                     headers={"User-Agent": "homepage-pub-sync (mailto:hyuns2316@gmail.com)"})
+                     headers={"User-Agent": "homepage-pub-sync"})
     if r.status_code != 200:
         return {}
     return r.json().get("message", {})
@@ -393,13 +413,13 @@ def main():
     seen_text += "".join(f"- {q(p['title'])}\n" for p in new)
     SEEN.write_text(seen_text, encoding="utf-8")
 
-    lines = [f"Found **{len(new)}** new paper(s) on Google Scholar:\n"]
+    lines = [f"Found **{len(new)}** new paper(s) on {'ORCID' if SOURCE == 'orcid' else 'Google Scholar'}:\n"]
     lines += [f"- {p['title']} ({p['venue']}, {p['year']})" for p in new]
     lines += [
         "",
         "Draft entries were added to the top of `_data/publications.yml`. Before merging:",
-        "- Check the author list (Scholar sometimes abbreviates names).",
-        "- Replace `conference_short: \"TODO\"` with the venue badge text.",
+        "- Check the author list.",
+        "- Check the venue badge (`conference_short`); unknown venues are set to `TODO`.",
         "- Add a thumbnail under `assets/img/` and update `image:`; add a `.bib` file if wanted.",
         *(["- News lines were added to `index.md` using the publication month; change it to the "
            "acceptance month and edit the wording if you like."] if news_added else []),

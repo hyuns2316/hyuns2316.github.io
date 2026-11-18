@@ -1,9 +1,8 @@
 main:
 
-  # TODO(scholar-sync): check authors, set conference_short / image / bibtex
   - title: "Sparse-Contact Hypothesis Generation for Tactile 6D Object Pose Estimation Via Correspondence Graph Optimization"
     authors: "Hyunho Hwang, <strong>Hyunsoo Shin</strong>, Jae-Han Park"
-    conference_short: "TODO"
+    conference_short: RA-L
     conference: "IEEE Robotics and Automation Letters, 2026."
     pdf: https://doi.org/10.1109/LRA.2026.3754607
     bibtex:
