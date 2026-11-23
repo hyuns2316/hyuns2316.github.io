@@ -43,7 +43,7 @@ https://hyuns2316.github.io 의 소스입니다. Jekyll 테마는 [Minimal Light
 
 ## 2. 새 논문 자동 감지 (ORCID 기준)
 
-- **언제**: 매주 월요일 오전 9시경 (Actions 탭 → *Publication sync (ORCID)* → *Run workflow* 로 즉시 실행 가능)
+- **언제**: 매일 오전 9시경 (Actions 탭 → *Publication sync (ORCID)* → *Run workflow* 로 즉시 실행 가능)
 - **무엇을**: ORCID(`0000-0003-1159-1582`)에 새로 생긴 논문을 찾아 PR을 만듭니다. PR에는 다음이 들어 있습니다.
   - `publications.yml` 맨 위에 초안 항목 (저자는 DOI로 자동 채움, 뱃지는 `TODO`, 썸네일은 예시 이미지)
   - `index.md` News에 한 줄 (날짜는 출판 월 기준)
